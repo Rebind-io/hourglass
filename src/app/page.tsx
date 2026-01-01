@@ -1,5 +1,5 @@
 import { Header } from '@/components/header';
-import HomepageMain from '@/components/homepage/homepage';
+import HourGlass from '@/components/hourglass';
 
 const Homepage = () => {
   return (
@@ -12,7 +12,7 @@ const Homepage = () => {
       className='w-full h-screen bg-cover bg-center'
     >
       <Header />
-      {/* <HomepageMain />; */}
+      <HourGlass />
     </div>
   );
 };
