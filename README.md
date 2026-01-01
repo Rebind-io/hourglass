@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rebind Hourglass
+
+A beautiful and responsive countdown timer application built with Next.js 15, featuring real-time display and sound alerts.
+
+## Features
+
+- ⏳ **Intuitive Input**: Set timer duration in minutes with decimal precision
+- 🕐 **Real-time Display**: Live countdown showing minutes, seconds, and milliseconds
+- 🔔 **Sound Alarm**: Built-in audio alert when timer reaches zero
+- 🎨 **Modern UI**: Beautiful design using Tailwind CSS and shadcn/ui components
+- 🌙 **Dark Mode**: Automatic dark mode support
+- 📱 **Responsive**: Works perfectly on desktop and mobile devices
+- ⚡ **Fast Performance**: Built with Next.js 15 and TypeScript
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: shadcn/ui
+- **Package Manager**: pnpm
+- **Deployment**: Ready for Vercel deployment
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+2. Start the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+3. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Build for Production
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm build
+pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Set Timer**: Enter the desired duration in minutes (supports decimal values like 1.5 for 90 seconds)
+2. **Start**: Click the "Start Timer" button to begin the countdown
+3. **Monitor**: Watch the real-time countdown with millisecond precision
+4. **Alert**: When the timer reaches zero, you'll hear an audio alarm and see a visual notification
+5. **Control**: Use Stop/Reset buttons to control the timer as needed
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features in Detail
 
-## Learn More
+### Timer Display
 
-To learn more about Next.js, take a look at the following resources:
+- **Minutes:Seconds** format in large, easy-to-read digits
+- **Milliseconds** displayed separately for precision
+- **Progress Bar** showing visual completion status
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Audio Alert
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Uses Web Audio API for consistent cross-browser sound generation
+- Generates a 800Hz square wave tone for 1 second
+- No external audio files required
 
-## Deploy on Vercel
+### Responsive Design
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Mobile-first design approach
+- Adapts beautifully to all screen sizes
+- Touch-friendly interface
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── page.tsx          # Main timer component
+│   ├── layout.tsx        # Root layout with metadata
+│   └── globals.css       # Global styles and Tailwind imports
+├── components/ui/        # shadcn/ui components
+│   ├── button.tsx
+│   ├── card.tsx
+│   └── input.tsx
+└── lib/
+    └── utils.ts          # Utility functions
+```
