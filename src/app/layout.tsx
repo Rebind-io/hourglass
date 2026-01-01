@@ -1,20 +1,18 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Orbitron } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const orbitron = Orbitron({
+  variable: '--font-orbitron',
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
 });
 
 export const metadata: Metadata = {
-  title: 'Hourglass Timer',
-  description: 'A beautiful countdown timer app with sound alerts',
+  title: 'Rebind Hourglass - Timer App',
+  description:
+    'A beautiful countdown timer app with dark/light themes, sound alerts, and modern UI',
 };
 
 export default function RootLayout({
@@ -23,8 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+    <html lang='en' suppressHydrationWarning>
+      <body className={`${orbitron.variable} font-sans antialiased`}>
+        <ThemeProvider defaultTheme='dark' enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

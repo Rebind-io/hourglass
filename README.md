@@ -1,16 +1,26 @@
-# Rebind Hourglass
+# Rebind Hourglass Timer App
 
-A beautiful and responsive countdown timer application built with Next.js 15, featuring real-time display and sound alerts.
+A beautiful and responsive countdown timer application built with Next.js 15, featuring real-time display, sound alerts, and complete theme support.
 
 ## Features
 
 - ⏳ **Intuitive Input**: Set timer duration in minutes with decimal precision
 - 🕐 **Real-time Display**: Live countdown showing minutes, seconds, and milliseconds
 - 🔔 **Sound Alarm**: Built-in audio alert when timer reaches zero
-- 🎨 **Modern UI**: Beautiful design using Tailwind CSS and shadcn/ui components
-- 🌙 **Dark Mode**: Automatic dark mode support
+- 🎨 **Theme Support**: Complete dark/light mode with system detection
+- 🖥️ **Modern Header**: Professional header with logo and theme controls
+- 🌙 **Dark by Default**: Starts in dark mode for comfortable viewing
 - 📱 **Responsive**: Works perfectly on desktop and mobile devices
 - ⚡ **Fast Performance**: Built with Next.js 15 and TypeScript
+- 🎯 **Professional UI**: Clean interface using Tailwind CSS and shadcn/ui
+
+## Theme System
+
+- **Dark Mode**: Rich dark theme with proper contrast (default)
+- **Light Mode**: Clean light theme for bright environments
+- **System Mode**: Automatically follows your OS preference
+- **Smooth Transitions**: Seamless switching between themes
+- **Header Controls**: Easy theme toggle in the top navigation
 
 ## Technology Stack
 
@@ -18,6 +28,8 @@ A beautiful and responsive countdown timer application built with Next.js 15, fe
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **UI Components**: shadcn/ui
+- **Theme Management**: next-themes
+- **Icons**: Lucide React
 - **Package Manager**: pnpm
 - **Deployment**: Ready for Vercel deployment
 
