@@ -5,8 +5,8 @@ import { Github } from 'lucide-react';
 
 export function Header() {
   return (
-    <header className='w-full  p-8'>
-      <div className='container flex h-14 max-w-screen-2xl items-center'>
+    <header className='w-full p-8'>
+      <div className='container flex h-14 max-w-screen-2xl m-auto items-center'>
         <div className='flex'>
           <h1 className='flex items-center'>
             <span className='text-4xl font-extrabold text-red-500 capitalize font-sans tracking-tight'>

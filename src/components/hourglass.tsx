@@ -3,11 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import TimeInput from './TimeInput';
+import TimerDisplay from './TimerDisplay';
 
 export default function HourGlass() {
-  const [inputMinutes, setInputMinutes] = useState<string>('');
+  const [initialTime, setInitialTime] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
@@ -56,16 +56,21 @@ export default function HourGlass() {
     gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
 
     oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 10);
+    oscillator.stop(audioContext.currentTime + 1);
   };
 
-  const startTimer = () => {
-    const minutes = parseFloat(inputMinutes);
-    if (minutes > 0) {
-      setTimeLeft(minutes * 60 * 1000); // Convert to milliseconds
+  const startTimer = (milliseconds?: number) => {
+    const timeToSet = milliseconds || timeLeft;
+    if (timeToSet > 0) {
+      setTimeLeft(timeToSet);
+      setInitialTime(timeToSet);
       setIsActive(true);
       setIsFinished(false);
     }
+  };
+
+  const handleTimeInputStart = (milliseconds: number) => {
+    startTimer(milliseconds);
   };
 
   const stopTimer = () => {
@@ -75,8 +80,8 @@ export default function HourGlass() {
   const resetTimer = () => {
     setIsActive(false);
     setTimeLeft(0);
+    setInitialTime(0);
     setIsFinished(false);
-    setInputMinutes('');
   };
 
   const formatTime = (time: number) => {
@@ -95,71 +100,35 @@ export default function HourGlass() {
   const { minutes, seconds, milliseconds } = formatTime(timeLeft);
 
   return (
-    <div className='flex items-center justify-center my-20'>
+    <div className='flex items-center justify-center my-10'>
       <Card className='w-full max-w-2xl shadow-3xl border border-border/60 bg-transparent backdrop-blur-3xl'>
-        <CardHeader className='text-center'>
+        {/* <CardHeader className='text-center'>
           <CardTitle className='text-2xl font-bold text-card-foreground flex items-center justify-center gap-2'>
             Timer
           </CardTitle>
-        </CardHeader>
+        </CardHeader> */}
         <CardContent className='space-y-6'>
-          {/* Input Section */}
-          {/* <div className='space-y-2'>
-            <label htmlFor='minutes-input' className='text-sm font-medium text-muted-foreground'>
-              Timer Duration (minutes)
-            </label>
-            <Input
-              id='minutes-input'
-              type='number'
-              placeholder='Enter minutes'
-              value={inputMinutes}
-              onChange={(e) => setInputMinutes(e.target.value)}
-              disabled={isActive}
-              min='0.1'
-              step='0.1'
-              className='text-center text-lg'
-            />
-          </div> */}
           <div className='w-full flex justify-center'>
-            <TimeInput onStart={(milliseconds) => {}} />
-          </div>
-
-          {/* Timer Display */}
-          <div className='text-center space-y-2'>
-            <div className='bg-muted rounded-lg p-6 border border-border/50'>
-              <div className='text-4xl font-mono font-bold text-foreground'>
-                {minutes}:{seconds}
-              </div>
-              <div className='text-xl font-mono text-muted-foreground'>.{milliseconds}</div>
-            </div>
-
-            {isFinished && (
-              <div className='text-destructive font-semibold text-lg animate-pulse'>
-                🔔 Time's Up!
-              </div>
+            {isActive ? (
+              <TimerDisplay
+                minutes={minutes}
+                seconds={seconds}
+                milliseconds={milliseconds}
+                isFinished={isFinished}
+              />
+            ) : (
+              <TimeInput onStart={handleTimeInputStart} disabled={isActive} />
             )}
           </div>
 
           {/* Control Buttons */}
-          <div className='flex gap-2 justify-center'>
-            {!isActive ? (
-              <Button
-                onClick={startTimer}
-                disabled={!inputMinutes || parseFloat(inputMinutes) <= 0}
-                className='flex-1 bg-green-600 hover:bg-green-700 text-white'
-              >
-                Start Timer
+          {isActive && (
+            <div className='flex gap-2 justify-center'>
+              <Button onClick={resetTimer} variant='outline' className='flex-1 cursor-pointer'>
+                Reset
               </Button>
-            ) : (
-              <Button onClick={stopTimer} className='flex-1 bg-red-600 hover:bg-red-700 text-white'>
-                Stop Timer
-              </Button>
-            )}
-
-            <Button onClick={resetTimer} variant='outline' className='flex-1'>
-              Reset
-            </Button>
-          </div>
+            </div>
+          )}
 
           {/* Progress Bar */}
           {(isActive || timeLeft > 0) && (
@@ -167,13 +136,7 @@ export default function HourGlass() {
               <div
                 className='bg-primary h-2 rounded-full transition-all duration-100 ease-out'
                 style={{
-                  width: `${
-                    inputMinutes
-                      ? ((parseFloat(inputMinutes) * 60 * 1000 - timeLeft) /
-                          (parseFloat(inputMinutes) * 60 * 1000)) *
-                        100
-                      : 0
-                  }%`,
+                  width: `${initialTime > 0 ? ((initialTime - timeLeft) / initialTime) * 100 : 0}%`,
                 }}
               />
             </div>

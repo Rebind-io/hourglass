@@ -10,11 +10,12 @@ import { Button } from './ui/button';
 
 interface TimeInputProps {
   onStart: (milliseconds: number) => void;
+  disabled?: boolean;
 }
 
-const TimeInput = ({ onStart }: TimeInputProps) => {
-  const [minutes, setMinutes] = useState<string>('');
-  const [seconds, setSeconds] = useState<string>('10');
+const TimeInput = ({ onStart, disabled = false }: TimeInputProps) => {
+  const [minutes, setMinutes] = useState<string>('10');
+  const [seconds, setSeconds] = useState<string>('0');
 
   const handleStart = () => {
     const totalMilliseconds =
@@ -24,7 +25,7 @@ const TimeInput = ({ onStart }: TimeInputProps) => {
   };
 
   return (
-    <div className='w-75'>
+    <div className='w-75 py-10'>
       <div>
         <CustomSelect
           label='Timer Duration (minutes)'
@@ -32,8 +33,8 @@ const TimeInput = ({ onStart }: TimeInputProps) => {
           value={minutes}
           onChange={(value) => setMinutes(value)}
           items={[
-            { label: '0 Minutes', value: '0' },
-            { label: '5 Minutes', value: '5' },
+            { label: '00 Minute', value: '0' },
+            { label: '05 Minutes', value: '5' },
             { label: '10 Minutes', value: '10' },
             { label: '15 Minutes', value: '15' },
             { label: '20 Minutes', value: '20' },
@@ -49,8 +50,8 @@ const TimeInput = ({ onStart }: TimeInputProps) => {
           value={seconds}
           onChange={(value) => setSeconds(value)}
           items={[
-            { label: '0 Seconds', value: '0' },
-            { label: '5 Seconds', value: '5' },
+            { label: '00 Second', value: '0' },
+            { label: '05 Seconds', value: '5' },
             { label: '10 Seconds', value: '10' },
             { label: '15 Seconds', value: '15' },
             { label: '20 Seconds', value: '20' },
@@ -62,10 +63,10 @@ const TimeInput = ({ onStart }: TimeInputProps) => {
         />
         <Button
           onClick={handleStart}
-          disabled={!minutes && !seconds}
+          disabled={disabled || (!minutes && !seconds)}
           className='w-full mt-1 cursor-pointer bg-green-600 hover:bg-green-700 disabled:text-gray-400 text-white'
         >
-          Start
+          {disabled ? 'Running...' : 'Start'}
         </Button>
       </div>
     </div>
