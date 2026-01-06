@@ -17,7 +17,7 @@ const Homepage = () => {
       <footer className='w-full p-4 text-center text-sm text-gray-300'>
         © {new Date().getFullYear()} Rebind Hourglass. All rights reserved by{' '}
         <Link
-          href='https://github.com/Rebind-io/hourglass'
+          href='https://mhshohan.vercel.app'
           target='_blank'
           rel='noopener noreferrer'
           className='text-emerald-500 hover:text-emerald-300'
